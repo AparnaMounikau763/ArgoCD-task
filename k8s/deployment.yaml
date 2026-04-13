@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argo-app
+  labels:
+    app: argo-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: argo-app
+  template:
+    metadata:
+      labels:
+        app: argo-app
+    spec:
+      containers:
+        - name: argo-app
+          image: ghcr.io/<your-username>/<repo>:latest   # ⚠️ replace this
+          ports:
+            - containerPort: 5000
+          env:
+            - name: VERSION
+              value: "1.0"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
